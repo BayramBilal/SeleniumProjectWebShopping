@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.util.List;
@@ -13,13 +14,12 @@ import java.util.concurrent.TimeUnit;
 public class Fipkart3 {
 
 
-    public static void main(String[] args) {
-
-
+   @Test
+   public void test1(){
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         driver.get("https://www.flipkart.com/");
 
@@ -31,12 +31,15 @@ public class Fipkart3 {
         element.click();
         WebElement elMenu = driver.findElement(By.xpath("//span[.='Electronics']"));
         elMenu.click();
-        List<WebElement> elMenus = driver.findElements(By.xpath("//div[@class='_1QrT3s']/div[@class='_1fwVde'][1]"));
+        List<WebElement> elMenus = driver.findElements(By.xpath("//div[@class='_1QrT3s']/div[@class='_1fwVde'][1]/a"));
 
-        System.out.println(elMenus.size());
-        for(WebElement element1 : elMenus){
-            System.out.println(element1.getText());
+
+        //System.out.println(elMenus.getText());
+        //System.out.println(elMenus.size());
+        // int count = 1;
+        for(int i =1 ; i < elMenus.size(); i++){
+            System.out.println(i + ". " +elMenus.get(i).getText());
         }
     }
-    }
+}
 
