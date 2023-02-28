@@ -3,6 +3,7 @@ package com.cydeo.tests;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -60,10 +61,46 @@ public class TestAmazonWithTestNG {
 
     }
 
-       @AfterMethod
-        public void tearDown(){
-            driver.close();
-        }
+//       @AfterMethod
+//        public void tearDown(){
+//            driver.close();
+//        }
 
+    @Test
+    public void test2(){
+
+        driver.get("https://www.amazon.com.tr");
+        WebElement AcceptCookie = driver.findElement(By.id("sp-cc-accept"));
+        AcceptCookie.click();
+
+        WebElement KuruMama = driver.findElement(By.xpath("//span[.='Kuru Mamalar']"));
+        KuruMama.click();
+
+        WebElement somon = driver.findElement(By.xpath("//span[.='Somon']"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(somon).perform();
+        somon.click();
+        WebElement BestPet = driver.findElement(By.xpath("//span[.='BESTPET ADULT CAT SALMON STERILISED IN JELLY 85 G']"));
+        actions.moveToElement(BestPet).perform();
+        BestPet.click();
+
+
+        WebElement AddToCartButton = driver.findElement(By.id("add-to-cart-button"));
+        AddToCartButton.click();
+
+        WebElement SepeteGit = driver.findElement(By.id("sw-gtc"));
+        SepeteGit.click();
+
+        WebElement tamamla = driver.findElement(By.xpath("//input[@data-feature-id='proceed-to-checkout-action']"));
+       tamamla.click();
+
+
+//       String expectedItem = "BESTPET ADULT CAT SALMON STERILISED IN JELLY 85 G";
+//       String actualItem = driver.findElement(By.xpath("//span[.='BESTPET ADULT CAT SALMON STERILISED IN JELLY 85 G'][2]")).getText();
+//
+//       Assert.assertEquals(expectedItem, actualItem);
+
+
+    }
 
     }
