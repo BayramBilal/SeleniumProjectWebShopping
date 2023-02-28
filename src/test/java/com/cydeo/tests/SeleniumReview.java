@@ -7,6 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 
+import javax.annotation.concurrent.ThreadSafe;
+
 public class SeleniumReview {
 
     static WebDriver driver;
@@ -163,5 +165,63 @@ public class SeleniumReview {
          actions.dragAndDrop(imageSource, boxTarget).build().perform();
 
     }
+    @Test
+    public void test8RadioButtons() throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
 
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+
+        driver.get("https://formy-project.herokuapp.com/radiobutton");
+
+        WebElement radioButton1 = driver.findElement(By.id("radio-button-1"));
+        radioButton1.click();
+        Thread.sleep(3000);
+        WebElement radioButton2 = driver.findElement(By.cssSelector("input[value='option2']"));
+        radioButton2.click();
+
+        Thread.sleep(3000);
+        WebElement radioButton3 = driver.findElement(By.cssSelector("input[value='option3']"));
+        radioButton3.click();
+
+        Thread.sleep(3000);
+        driver.quit();
+
+    }
+    @Test
+    public void test9DatePicker() throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://formy-project.herokuapp.com/datepicker");
+        WebElement dateField = driver.findElement(By.id("datepicker"));
+        dateField.sendKeys("01/03/2023");
+       dateField.sendKeys(Keys.RETURN);
+        Thread.sleep(3000);
+      driver.quit();
+}
+    @Test
+    public void test10Dropdown() throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://formy-project.herokuapp.com/dropdown");
+       WebElement dropdownMenu = driver.findElement(By.id("dropdownMenuButton"));
+       dropdownMenu.click();
+       WebElement autocompleteItem = driver.findElement(By.id("autocomplete"));
+       autocompleteItem.click();
+        Thread.sleep(3000);
+
+        driver.quit();
+}
+    @Test
+    public void test11FileUpload() throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://formy-project.herokuapp.com/fileupload");
+        WebElement fileUploadField = driver.findElement(By.id("file-upload-field"));
+        fileUploadField.sendKeys("upload.jpg");
+
+}
 }
