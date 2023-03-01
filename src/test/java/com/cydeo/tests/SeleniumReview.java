@@ -1,5 +1,7 @@
 package com.cydeo.tests;
 
+import com.cydeo.pages.ComfirmationPage;
+import com.cydeo.pages.FormPage;
 import com.cydeo.utilities.BrowserUtils;
 import com.cydeo.utilities.Driver;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -243,22 +245,22 @@ public class SeleniumReview {
         driver.manage().window().maximize();
         driver.get("https://formy-project.herokuapp.com/form");
 
-        BrowserUtils.submitForm(driver);
-        BrowserUtils.waitAlertBanner(driver);
+        FormPage formPage = new FormPage();
+
+        formPage.submitForm(driver);
+
+        ComfirmationPage comfirmationPage = new ComfirmationPage();
+
+        comfirmationPage.waitAlertBanner(driver);
 
 
         String expectedtext = "The form was successfully submitted!";
 
-        System.out.println("actualText = " + getAlertBannerText(driver));
+        System.out.println("actualText = " + comfirmationPage.getAlertBannerText(driver));
 
-        Assert.assertEquals(getAlertBannerText(driver), expectedtext);
+        Assert.assertEquals(comfirmationPage.getAlertBannerText(driver), expectedtext);
 
 }
 
-    public static String getAlertBannerText(WebDriver driver){
 
-        String actualText = driver.findElement(By.className("alert")).getText();
-
-        return actualText;
-    }
 }

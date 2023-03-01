@@ -75,31 +75,9 @@ public class BrowserUtils {
        wait.until(ExpectedConditions.invisibilityOf(webElement));
     }
 
-    public static void submitForm(WebDriver driver) throws InterruptedException {
-
-        driver.findElement(By.id("first-name")).sendKeys("John");
-        driver.findElement(By.id("last-name")).sendKeys("Doe");
-        driver.findElement(By.id("job-title")).sendKeys("QA Engineer");
-        driver.findElement(By.id("radio-button-2")).click();
-        driver.findElement(By.id("checkbox-1")).click();
-        WebElement selectMenu = driver.findElement(By.id("select-menu"));
-        Select select = new Select(selectMenu);
-        select.selectByVisibleText("0-1");
-
-        driver.findElement(By.cssSelector("option[value='1']")).click();
-        driver.findElement(By.id("datepicker")).sendKeys("03/01/2023");
-        driver.findElement(By.id("datepicker")).sendKeys(Keys.RETURN);
-        Thread.sleep(5000);
-        driver.findElement(By.xpath("//a[@class='btn btn-lg btn-primary']")).click();
 
 
-    }
 
-    public static void waitAlertBanner(WebDriver driver){
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement alert = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("alert")));
-
-    }
 
 
 }
