@@ -95,10 +95,11 @@ public class TestAmazonWithTestNG {
        tamamla.click();
 
 
-//       String expectedItem = "BESTPET ADULT CAT SALMON STERILISED IN JELLY 85 G";
-//       String actualItem = driver.findElement(By.xpath("//span[.='BESTPET ADULT CAT SALMON STERILISED IN JELLY 85 G'][2]")).getText();
-//
-//       Assert.assertEquals(expectedItem, actualItem);
+       String expectedItem = "BESTPET ADULT CAT SALMON STERILISED IN JELLY 85 G";
+       String actualItem = driver.findElement(By.xpath("//span[.='BESTPET ADULT CAT SALMON STERILISED IN JELLY 85 G'][2]")).getText();
+        System.out.println("actualItem = " + actualItem);
+
+         Assert.assertEquals(actualItem, expectedItem);
 
 
     }
