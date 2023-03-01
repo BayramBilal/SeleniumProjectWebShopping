@@ -1,13 +1,19 @@
 package com.cydeo.tests;
 
+import com.cydeo.utilities.BrowserUtils;
 import com.cydeo.utilities.Driver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import javax.annotation.concurrent.ThreadSafe;
+import java.util.concurrent.TimeUnit;
 
 public class SeleniumReview {
 
@@ -38,6 +44,7 @@ public class SeleniumReview {
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         driver.get("https://formy-project.herokuapp.com/autocomplete");
 
@@ -55,6 +62,7 @@ public class SeleniumReview {
 
         WebElement state = driver.findElement(By.xpath("//input[@placeholder='State']"));
        state.sendKeys("Merkez");
+
 
         WebElement zipCode = driver.findElement(By.id("postal_code"));
         zipCode.sendKeys("22100");
@@ -166,7 +174,7 @@ public class SeleniumReview {
 
     }
     @Test
-    public void test8RadioButtons() throws InterruptedException {
+    public void test8RadioButtons() {
         WebDriverManager.chromedriver().setup();
 
         driver = new ChromeDriver();
@@ -174,17 +182,20 @@ public class SeleniumReview {
 
         driver.get("https://formy-project.herokuapp.com/radiobutton");
 
+
+
         WebElement radioButton1 = driver.findElement(By.id("radio-button-1"));
         radioButton1.click();
-        Thread.sleep(3000);
+
+
         WebElement radioButton2 = driver.findElement(By.cssSelector("input[value='option2']"));
         radioButton2.click();
 
-        Thread.sleep(3000);
-        WebElement radioButton3 = driver.findElement(By.cssSelector("input[value='option3']"));
-        radioButton3.click();
 
-        Thread.sleep(3000);
+        WebElement radioButton3 = driver.findElement(By.cssSelector("input[value='option3']"));
+         radioButton3.click();
+
+
         driver.quit();
 
     }
@@ -224,4 +235,30 @@ public class SeleniumReview {
         fileUploadField.sendKeys("upload.jpg");
 
 }
+
+    @Test
+    public void test12FillTheForm() throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://formy-project.herokuapp.com/form");
+
+        BrowserUtils.submitForm(driver);
+        BrowserUtils.waitAlertBanner(driver);
+
+
+        String expectedtext = "The form was successfully submitted!";
+
+        System.out.println("actualText = " + getAlertBannerText(driver));
+
+        Assert.assertEquals(getAlertBannerText(driver), expectedtext);
+
+}
+
+    public static String getAlertBannerText(WebDriver driver){
+
+        String actualText = driver.findElement(By.className("alert")).getText();
+
+        return actualText;
+    }
 }
